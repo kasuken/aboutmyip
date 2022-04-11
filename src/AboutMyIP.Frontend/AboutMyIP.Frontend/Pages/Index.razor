@@ -1,0 +1,26 @@
+﻿@page "/"
+@using AboutMyIP.Frontend.Models
+@using AboutMyIP.Frontend.Services
+
+@inject IApiClientService _apiClientService
+
+<PageTitle>About My IP</PageTitle>
+
+<h4>User Ip - @ipAddress.IP</h4>
+
+
+@code {
+    IPAddress ipAddress = new IPAddress();
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender) return;
+
+        ipAddress =  await _apiClientService.GetUserIPAsync();
+
+        var info = await _apiClientService.GetIPInfo(ipAddress.IP);
+
+        StateHasChanged();
+    }
+
+}
