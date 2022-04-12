@@ -86,7 +86,7 @@
     {
         if (!firstRender) return;
 
-        ipAddress.IP = await _apiClientService.GetUserIPAsync();
+        ipAddress = await _apiClientService.GetUserIPAsync();
         aboutMyIP = await _apiClientService.GetIPInfo(ipAddress.IP);
 
         isProtected = aboutMyIP.ConnectionInfo.IsBehindVpn || aboutMyIP.ConnectionInfo.IsBehindTor;

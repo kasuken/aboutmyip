@@ -6,7 +6,6 @@ namespace AboutMyIP.Frontend.Services
 {
     public class ApiClientService : IApiClientService
     {
-
         private readonly IHttpClientFactory _httpClientFactory;
 
         private readonly IConfiguration _configuration;
@@ -19,32 +18,29 @@ namespace AboutMyIP.Frontend.Services
 
         public async Task<AboutMyIPResponse> GetIPInfo(string ip)
         {
-            var client = new HttpClient();
+            var client = _httpClientFactory.CreateClient("RapidAPI");
             var request = new HttpRequestMessage
             {
                 Method = HttpMethod.Get,
-                RequestUri = new Uri($"https://about-my-ip.p.rapidapi.com/getipinfo/{ip}"),
+                RequestUri = new Uri($"{client.BaseAddress.AbsoluteUri}/{ip}"),
                 Headers =
                 {
                     { "X-RapidAPI-Host", "about-my-ip.p.rapidapi.com" },
-                    { "X-RapidAPI-Key", _configuration["rapidAPIKey"] },
+                    { "X-RapidAPI-Key", _configuration["rapidAPIKey"] }
                 },
             };
 
-            using (var response = await client.SendAsync(request))
-            {
-                response.EnsureSuccessStatusCode();
-                var body = await response.Content.ReadAsStringAsync();
+            using var response = await client.SendAsync(request);
 
-                var result = JsonConvert.DeserializeObject<AboutMyIPResponse>(body);
-                return result;
-            }
+            response.EnsureSuccessStatusCode();
+            var body = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<AboutMyIPResponse>(body);
         }
 
-        public async Task<string> GetUserIPAsync()
+        public async Task<IPAddress> GetUserIPAsync()
         {
             var client = _httpClientFactory.CreateClient("IP");
-            return await client.GetStringAsync("/");
+            return await client.GetFromJsonAsync<IPAddress>("/");
         }
     }
 }

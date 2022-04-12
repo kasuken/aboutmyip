@@ -10,10 +10,13 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
 builder.Services.AddHttpClient("IP", (options) => {
-    options.BaseAddress = new Uri("https://api.ipify.org/?formatjson");
+    options.BaseAddress = new Uri("https://jsonip.com");
 });
 
-//builder.Services.AddScoped<IApiClientService, ApiClientService>(x => new ApiClientService(builder.Configuration));
+builder.Services.AddHttpClient("RapidAPI", (options) => {
+    options.BaseAddress = new Uri("https://about-my-ip.p.rapidapi.com/getipinfo");
+});
+
 builder.Services.AddScoped<IApiClientService, ApiClientService>();
 
 await builder.Build().RunAsync();

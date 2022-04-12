@@ -4,7 +4,10 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>AboutMyIP.Frontend</title>
+    <title>Find information about your IP address</title>
+    <meta name="description" content="Find your IP address and the Internet Service Provider (ISP) with this online tool. Also check your location." />
+    <meta name="keywords" content="My IP,Who is my ISP,IP,Internet service provider,internet provider,provider,hostname,my IP finder,IP lookup">
+    <meta name="site_name" property="og:site_name" content="aboutmyip.cloud">
     <base href="/" />
     <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
     <link href="css/app.css" rel="stylesheet" />
@@ -24,6 +27,19 @@
     </div>
     <script src="_framework/blazor.webassembly.js"></script>
     <script>navigator.serviceWorker.register('service-worker.js');</script>
+
+    <script>
+        window.onload = function () {
+            setTimeout(function () {
+                if (typeof (window.google_jobrunner) === "undefined") {
+                    alert("It seems that you have an AD blocker installed. Deactive the tool for this website.");
+                } else {
+                    console.log("no ad blocking found.");
+                }
+            }, 5000);
+        };
+    </script>
+
 </body>
 
 </html>
