@@ -41,11 +41,10 @@ namespace AboutMyIP.Frontend.Services
             }
         }
 
-        public async Task<IPAddress> GetUserIPAsync()
+        public async Task<string> GetUserIPAsync()
         {
             var client = _httpClientFactory.CreateClient("IP");
-            return await client.GetFromJsonAsync<IPAddress>("/");
+            return await client.GetStringAsync("/");
         }
-
     }
 }
