@@ -1,0 +1,97 @@
+﻿@page "/"
+@using AboutMyIP.Frontend.Models
+@using AboutMyIP.Frontend.Services
+
+@inject IApiClientService _apiClientService
+
+<PageTitle>About My IP</PageTitle>
+
+<div class="px-4 py-5 my-5 text-center">
+    <div class="col-lg-6 mx-auto">
+        <p class="lead mb-4">Your IP is</p>
+    </div>
+    <h1 class="display-5 fw-bold">@ipAddress.IP</h1>
+    <div class="col-lg-6 mx-auto">
+
+        @if (!isProtected)
+        {
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                <a class="btn btn-warning btn-lg px-4 gap-3" href="@affiliateUrl">Hide your IP with a VPN</a>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+    <div class="col d-flex align-items-start">
+        <div>
+            <h2>Featured title</h2>
+            <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
+            <a href="#" class="btn btn-primary">
+                Primary button
+            </a>
+        </div>
+    </div>
+    <div class="col d-flex align-items-start">
+        <div>
+            <h2>Location</h2>
+            <p>Your approximate location is: @aboutMyIP.LocationInfo.City - @aboutMyIP.LocationInfo.Country (@aboutMyIP.LocationInfo.CountryCode).<br /></p>
+
+            @if (!isProtected)
+            {
+                <a class="btn btn-warning btn-lg px-4 gap-3" href="@affiliateUrl">
+                    Hide your location with a VPN
+                </a>
+            }
+        </div>
+    </div>
+    <div class="col d-flex align-items-start">
+        <div>
+            <h2>IP address</h2>
+            <p>Your external IP address is <b>@ipAddress.IP</b>. This is an address used to identify your internet connection.</p>
+            <h2>ISP</h2>
+            <p>
+                Your Internet Service Provider is <b>@aboutMyIP.ISPInfo.Network</b>.<br />
+                An Internet Service Provider is a company that provides Internet access to users or companies.
+            </p>
+            <a href="#" class="btn btn-primary">
+                Primary button
+            </a>
+        </div>
+    </div>
+</div>
+
+<footer class="py-3 my-4">
+    <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+        <li class="nav-item"><a href="https://github.com/kasuken/aboutmyip" target="_blank" class="nav-link px-2 text-muted">github</a></li>
+    </ul>
+    <p class="text-center text-muted">© @DateTime.Now.Year - AboutMyIP</p>
+</footer>
+
+@code {
+    IPAddress ipAddress = new IPAddress();
+    AboutMyIPResponse aboutMyIP = new AboutMyIPResponse();
+    bool isProtected = false;
+    string affiliateUrl = "https://go.nordvpn.net/aff_c?offer_id=612&aff_id=63419";
+
+    protected override async Task OnInitializedAsync()
+    {
+        ipAddress.IP = "...";
+        aboutMyIP.ConnectionInfo = new ConnectionInfo();
+        aboutMyIP.ISPInfo = new ISPInfo();
+        aboutMyIP.LocationInfo = new LocationInfo();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender) return;
+
+        ipAddress = await _apiClientService.GetUserIPAsync();
+        aboutMyIP = await _apiClientService.GetIPInfo(ipAddress.IP);
+
+        isProtected = aboutMyIP.ConnectionInfo.IsBehindVpn || aboutMyIP.ConnectionInfo.IsBehindTor;
+
+        StateHasChanged();
+    }
+
+}
