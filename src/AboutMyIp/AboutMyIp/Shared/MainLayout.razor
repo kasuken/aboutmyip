@@ -1,0 +1,73 @@
+﻿@inherits LayoutComponentBase
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="/">Who is my ISP?</a>
+        <span style="color:white">Your IP: 89.217.34.202 · Your status: <a href="https://go.nordvpn.net/aff_c?offer_id=15&amp;aff_id=52728&amp;url_id=5159&amp;aff_sub=unprotected_1" target="_blank" class="unprotected">Unprotected</a></span>
+
+    </div>
+</nav>
+
+<main role="main">
+
+     @Body
+
+    <div class="jumbotron">
+        <div class="container">
+            <h1 class="display-3">Your ISP is</h1>
+            <p class="isp">sunrise</p>
+            <p class="aka">also known as 'Sunrise UPC GmbH'.</p>                                        <p class="info">Your online activity can be seen by your ISP. Some ISPs even sell that data to third parties. The best way to prevent your ISP from tracking your online activities is to encrypt your internet traffic. <a href="https://go.nordvpn.net/aff_c?offer_id=15&amp;aff_id=52728&amp;url_id=5159&amp;aff_sub=native_1" target="_blank" rel="noreferrer noopener">Use a VPN →</a></p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row main-content">
+            <div class="col-md-4">
+                <h2>What is an ISP?</h2>
+                <p>
+                    ISP is an acronym that stands for <em>Internet Service Provider</em>. An Internet Service Provider is a company that provides Internet access
+                    to organizations and home users. Learn more about ISPs in the article <a href="/articles/what-is-an-isp">what is an ISP?</a>
+                </p>
+                <h2>Other IP</h2>
+                <p>Do you want to know the ISP, hostname and location of another IP?</p>
+                <form class="input-group" onsubmit="findIsp(); return false" onkeydown="document.getElementById('otherIp').classList.remove('is-invalid')">
+                    <input type="text" id="otherIp" class="form-control" placeholder="89.217.34.202" aria-label="IP address">
+                    <span class="input-group-btn">
+                        <button class="btn btn-outline-primary" type="submit">Find ISP</button>
+                    </span>
+                </form>
+            </div>
+            <div class="col-md-4">
+                <h2>Location</h2>
+                <p>The approximate location of your internet connection is shown below.</p>
+                <p>
+                    <img src="https://stadiamaps.com/static/alidade_smooth?api_key=23fe682b-ac7c-4f2b-83db-39dcf2a8b9ac&amp;center=47.3821,8.6573&amp;zoom=5&amp;markers=47.3821,8.6573&amp;size=350x250" alt="Approximate location of your internet connection" class="img-fluid" width="350" height="250">
+                </p>
+                <p><a href="https://go.nordvpn.net/aff_c?offer_id=15&amp;aff_id=52728&amp;url_id=5159&amp;aff_sub=location_1" target="_blank" rel="noreferrer noopener">Hide your IP location with a VPN</a></p>
+            </div>            <div class="col-md-4">
+                <h2>IP address</h2>
+                <p>Your external IP address is <em>89.217.34.202</em>. This is an address used to identify your internet connection.</p>
+                <h2>Hostname</h2>
+                <p>The hostname of your internet connection is <em>'adsl-89-217-34-202.adslplus.ch'</em>.</p>
+                <h2>Share this report</h2>
+                <form class="input-group" onsubmit="document.getElementById('shareInput').select();document.execCommand('copy');return false;">
+                    <input type="text" id="shareInput" class="form-control" readonly="" value="https://www.whoismyisp.org/ip/89.217.34.202" aria-label="Share URL">
+                    <span class="input-group-btn">
+                        <button class="btn btn-outline-primary" type="submit">Copy</button>
+                    </span>
+                </form>
+            </div>
+        </div>
+        <hr>
+    </div>
+</main>
+
+<footer class="container">
+    <div class="row">
+        <div class="col-sm">
+            © WhoIsMyISP.org - 2022        </div>
+        <div class="col-sm text-sm-right">
+            Data powered by <a href="https://www.ipinfo.io/" rel="noopener" target="_blank"><img src="img/ipinfoio-logo.svg" title="ipinfo.io" alt="ipinfo.io logo" width="100" height="30"></a>
+        </div>
+    </div>
+</footer>
