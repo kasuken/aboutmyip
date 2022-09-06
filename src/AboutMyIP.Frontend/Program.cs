@@ -10,7 +10,7 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
 builder.Services.AddHttpClient("IP", (options) => {
-    options.BaseAddress = new Uri("https://api.ipify.org/");
+    options.BaseAddress = new Uri("https://aboutmyipapi-prod.azurewebsites.net/");
 });
 
 builder.Services.AddHttpClient("RapidAPI", (options) => {
