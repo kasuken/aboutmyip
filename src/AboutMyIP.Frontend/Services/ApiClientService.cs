@@ -39,7 +39,7 @@ namespace AboutMyIP.Frontend.Services
 
         public async Task<IPAddress> GetUserIPAsync()
         {
-            var client = _httpClientFactory.CreateClient("RapidAPI");
+            var client = _httpClientFactory.CreateClient("IP");
             var request = new HttpRequestMessage
             {
                 Method = HttpMethod.Get,
