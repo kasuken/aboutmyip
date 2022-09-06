@@ -22,7 +22,7 @@ namespace AboutMyIP.Frontend.Services
             var request = new HttpRequestMessage
             {
                 Method = HttpMethod.Get,
-                RequestUri = new Uri($"{client.BaseAddress.AbsoluteUri}/{ip}"),
+                RequestUri = new Uri($"{client.BaseAddress.AbsoluteUri}/getipinfo/{ip}"),
                 Headers =
                 {
                     { "X-RapidAPI-Host", "about-my-ip.p.rapidapi.com" },
@@ -39,8 +39,25 @@ namespace AboutMyIP.Frontend.Services
 
         public async Task<IPAddress> GetUserIPAsync()
         {
-            var client = _httpClientFactory.CreateClient("IP");
-            return await client.GetFromJsonAsync<IPAddress>("?format=json");
+            var client = _httpClientFactory.CreateClient("RapidAPI");
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri($"{client.BaseAddress.AbsoluteUri}/getipaddress"),
+                Headers =
+                {
+                    { "X-RapidAPI-Host", "about-my-ip.p.rapidapi.com" },
+                    { "X-RapidAPI-Key", _configuration["rapidAPIKey"] }
+                },
+            };
+
+            using var response = await client.SendAsync(request);
+
+            response.EnsureSuccessStatusCode();
+            var body = await response.Content.ReadAsStringAsync();
+
+            var result = new IPAddress() { IP = body };
+            return result;
         }
     }
 }

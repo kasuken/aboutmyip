@@ -14,7 +14,7 @@ builder.Services.AddHttpClient("IP", (options) => {
 });
 
 builder.Services.AddHttpClient("RapidAPI", (options) => {
-    options.BaseAddress = new Uri("https://about-my-ip.p.rapidapi.com/getipinfo");
+    options.BaseAddress = new Uri("https://about-my-ip.p.rapidapi.com/");
 });
 
 builder.Services.AddScoped<IApiClientService, ApiClientService>();
