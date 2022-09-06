@@ -28,18 +28,6 @@
     <script src="_framework/blazor.webassembly.js"></script>
     <script>navigator.serviceWorker.register('service-worker.js');</script>
 
-    <script>
-        window.onload = function () {
-            setTimeout(function () {
-                if (typeof (window.google_jobrunner) === "undefined") {
-                    alert("It seems that you have an AD blocker installed. Deactive the tool for this website.");
-                } else {
-                    console.log("no ad blocking found.");
-                }
-            }, 5000);
-        };
-    </script>
-
 </body>
 
 </html>

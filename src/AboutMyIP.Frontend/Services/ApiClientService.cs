@@ -40,7 +40,7 @@ namespace AboutMyIP.Frontend.Services
         public async Task<IPAddress> GetUserIPAsync()
         {
             var client = _httpClientFactory.CreateClient("IP");
-            return await client.GetFromJsonAsync<IPAddress>("/");
+            return await client.GetFromJsonAsync<IPAddress>("?format=json");
         }
     }
 }

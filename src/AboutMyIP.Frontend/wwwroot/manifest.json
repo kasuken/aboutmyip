@@ -1,6 +1,6 @@
 {
-  "name": "AboutMyIP.Frontend",
-  "short_name": "AboutMyIP.Frontend",
+  "name": "AboutMyIP",
+  "short_name": "AboutMyIP",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#ffffff",
